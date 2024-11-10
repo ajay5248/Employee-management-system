@@ -1,0 +1,409 @@
+#include <iostream>
+#include <fstream>  // Include fstream for file handling
+#include <sstream>  // Include sstream for string manipulation
+using namespace std;
+
+string loginid[50], password[20], id[30], name[30], address[50], dob[30], mobile_no[30], doj[30], marstatus[30], workd[30], workl[40], salary[30], socialins[30], email[30]; // arrays for storing employee data.
+int total = 0; // to store all data
+
+// Function to write the employee data to a file
+void writeToFile() {
+    ofstream file("employee_data.txt", ios::trunc); // Open file in trunc mode to overwrite the file
+    if (file.is_open()) {
+        for (int i = 0; i < total; i++) {
+            file << loginid[i] << "," << password[i] << ","
+                 << id[i] << "," << name[i] << "," << address[i] << ","
+                 << dob[i] << "," << marstatus[i] << ","
+                 << workd[i] << "," << workl[i] << ","
+                 << salary[i] << "," << socialins[i] << ","
+                 << mobile_no[i] << "," << email[i] << ","
+                 << doj[i] << "\n";
+        }
+        file.close();
+    } else {
+        cout << "Error opening file for writing." << endl;
+    }
+}
+
+// Function to read employee data from file
+void readFromFile() {
+    ifstream file("employee_data.txt");
+    if (file.is_open()) {
+        string line;
+        total = 0;
+        while (getline(file, line)) {
+            stringstream ss(line);
+            getline(ss, loginid[total], ',');
+            getline(ss, password[total], ',');
+            getline(ss, id[total], ',');
+            getline(ss, name[total], ',');
+            getline(ss, address[total], ',');
+            getline(ss, dob[total], ',');
+            getline(ss, marstatus[total], ',');
+            getline(ss, workd[total], ',');
+            getline(ss, workl[total], ',');
+            getline(ss, salary[total], ',');
+            getline(ss, socialins[total], ',');
+            getline(ss, mobile_no[total], ',');
+            getline(ss, email[total], ',');
+            getline(ss, doj[total], ',');
+            total++;
+        }
+        file.close();
+    } else {
+        cout << "Error opening file for reading." << endl;
+    }
+}
+
+void enter() {
+    int ch = 0;
+
+    cout << "How Many Employees' Data Do You Want to Enter?" << endl;
+    cin >> ch;
+    
+    if (total == 0) {
+        total = ch + total;
+
+        for (int i = 0; i < ch; i++) {
+            cout << "\nEnter the Data of Employee " << i + 1 << endl;
+            cout << "** PERSONAL DETAILS **" << endl;
+            cout << "Enter Registration ID: ";
+            cin >> loginid[i];
+            cout << "Enter Password: ";
+            cin >> password[i];
+            cout << "Enter Name: ";
+            cin >> name[i];
+            cout << "Enter Address: ";
+            cin >> address[i];
+            cout << "Enter Date of Birth: ";
+            cin >> dob[i];
+            cout << "Is Employee Married? (Yes/No): ";
+            cin >> marstatus[i];
+
+            cout << "** WORK DETAILS **" << endl;
+            cout << "Enter Work ID: ";
+            cin >> id[i];
+            cout << "Enter Date of Joining: ";
+            cin >> doj[i];
+            cout << "Enter Work Department: ";
+            cin >> workd[i];
+            cout << "Enter Work Location: ";
+            cin >> workl[i];
+            cout << "Enter Salary: ";
+            cin >> salary[i];
+            cout << "Enter Social Insurance ID: ";
+            cin >> socialins[i];
+
+            cout << "** CONTACT DETAILS **" << endl;
+            cout << "Enter Mobile Number: ";
+            cin >> mobile_no[i];
+            cout << "Enter Email: ";
+            cin >> email[i];
+        }
+    } else {
+        for (int i = total; i < ch + total; i++) {
+            cout << "\nEnter the Data of Employee " << i + 1 << endl;
+            cout << "** PERSONAL DETAILS **" << endl;
+            cout << "Enter Registration ID: ";
+            cin >> loginid[i];
+            cout << "Enter Password: ";
+            cin >> password[i];
+            cout << "Enter Name: ";
+            cin >> name[i];
+            cout << "Enter Address: ";
+            cin >> address[i];
+            cout << "Enter Date of Birth: ";
+            cin >> dob[i];
+            cout << "Is Employee Married? (Yes/No): ";
+            cin >> marstatus[i];
+
+            cout << "** WORK DETAILS **" << endl;
+            cout << "Enter Work ID: ";
+            cin >> id[i];
+            cout << "Enter Date of Joining: ";
+            cin >> doj[i];
+            cout << "Enter Work Department: ";
+            cin >> workd[i];
+            cout << "Enter Work Location: ";
+            cin >> workl[i];
+            cout << "Enter Salary: ";
+            cin >> salary[i];
+            cout << "Enter Social Insurance ID: ";
+            cin >> socialins[i];
+
+            cout << "** CONTACT DETAILS **" << endl;
+            cout << "Enter Mobile Number: ";
+            cin >> mobile_no[i];
+            cout << "Enter Email: ";
+            cin >> email[i];
+        }
+
+        total = ch + total;
+    }
+
+    writeToFile();  // After entering data, write it to the file
+}
+
+void show() {
+    if (total == 0) {
+        cout << "No Data is Entered" << endl;
+    } else {
+        for (int i = 0; i < total; i++) {
+            cout << "\nData of Employee: " << i + 1 << endl;
+            cout << "** PERSONAL DETAILS **" << endl;
+            cout << "Login ID: " << loginid[i] << endl;
+            cout << "Password: " << password[i] << endl;
+            cout << "Name: " << name[i] << endl;
+            cout << "Address: " << address[i] << endl;
+            cout << "Date of Birth: " << dob[i] << endl;
+            cout << "Marital Status: " << marstatus[i] << endl;
+            cout << "** WORK DETAILS **" << endl;
+            cout << "ID: " << id[i] << endl;
+            cout << "Date of Joining: " << doj[i] << endl;
+            cout << "Work Department: " << workd[i] << endl;
+            cout << "Work Location: " << workl[i] << endl;
+            cout << "Salary: " << salary[i] << endl;
+            cout << "Social Insurance: " << socialins[i] << endl;
+            cout << "** CONTACT DETAILS **" << endl;
+            cout << "Mobile Number: " << mobile_no[i] << endl;
+            cout << "Email: " << email[i] << endl;
+        }
+    }
+}
+
+void search() {
+    if (total == 0) {
+        cout << "No data is entered" << endl;
+    } else {
+        string idd;
+        cout << "Enter the id of Employee you want to Search: ";
+        cin >> idd;
+        bool found = false;
+
+        for (int i = 0; i < total; i++) {
+            if (idd == id[i]) {
+                cout << "RESULT FOR EMPLOYEE ID: " << idd << endl;
+                cout << "** PERSONAL DETAILS **" << endl;
+                cout << "Login ID: " << loginid[i] << endl;
+                cout << "Password: " << password[i] << endl;
+                cout << "Full Name: " << name[i] << endl;
+                cout << "Address: " << address[i] << endl;
+                cout << "Date of Birth: " << dob[i] << endl;
+                cout << "Marital Status: " << marstatus[i] << endl;
+                cout << "** WORK DETAILS **" << endl;
+                cout << "ID: " << id[i] << endl;
+                cout << "Date of Joining: " << doj[i] << endl;
+                cout << "Work Department: " << workd[i] << endl;
+                cout << "Work Location: " << workl[i] << endl;
+                cout << "Salary: " << salary[i] << endl;
+                cout << "Social Insurance: " << socialins[i] << endl;
+                cout << "** CONTACT DETAILS **" << endl;
+                cout << "Mobile Number: " << mobile_no[i] << endl;
+                cout << "Email: " << email[i] << endl;
+                found = true;
+                break;
+            }
+        }
+
+        if (!found) {
+            cout << "Employee with ID " << idd << " not found." << endl;
+        }
+    }
+}
+
+void update() {
+    if (total == 0) {
+        cout << "No data is entered" << endl;
+    } else {
+        string rollno;
+        cout << "Enter the ID of Employee you want to update: ";
+        cin >> rollno;
+        bool updated = false;
+
+        for (int i = 0; i < total; i++) {
+            if (rollno == id[i]) {
+                cout << "\nPrevious Data: " << endl;
+                cout << "Data of Employee " << i + 1 << endl;
+                cout << "** PERSONAL DETAILS **" << endl;
+                cout << "Login ID: " << loginid[i] << endl;
+                cout << "Password: " << password[i] << endl;
+                cout << "Name: " << name[i] << endl;
+                cout << "Address: " << address[i] << endl;
+                cout << "Date of Birth: " << dob[i] << endl;
+                cout << "Marital Status: " << marstatus[i] << endl;
+                cout << "** WORK DETAILS **" << endl;
+                cout << "ID: " << id[i] << endl;
+                cout << "Date of Joining: " << doj[i] << endl;
+                cout << "Work Department: " << workd[i] << endl;
+                cout << "Work Location: " << workl[i] << endl;
+                cout << "Salary: " << salary[i] << endl;
+                cout << "Social Insurance: " << socialins[i] << endl;
+                cout << "** CONTACT DETAILS **" << endl;
+                cout << "Mobile Number: " << mobile_no[i] << endl;
+                cout << "Email: " << email[i] << endl;
+
+                cout << "\nEnter new data: " << endl;
+                cout << "** PERSONAL DETAILS **" << endl;
+                cout << "Enter Login ID: ";
+                cin >> loginid[i];
+                cout << "Enter Password: ";
+                cin >> password[i];
+                cout << "Enter Name: ";
+                cin >> name[i];
+                cout << "Enter Address: ";
+                cin >> address[i];
+                cout << "Enter Date of Birth: ";
+                cin >> dob[i];
+                cout << "Is Employee Married? (Yes/No): ";
+                cin >> marstatus[i];
+
+                cout << "** WORK DETAILS **" << endl;
+                cout << "Enter Work ID: ";
+                cin >> id[i];
+                cout << "Enter Date of Joining: ";
+                cin >> doj[i];
+                cout << "Enter Work Department: ";
+                cin >> workd[i];
+                cout << "Enter Work Location: ";
+                cin >> workl[i];
+                cout << "Enter Salary: ";
+                cin >> salary[i];
+                cout << "Enter Social Insurance ID: ";
+                cin >> socialins[i];
+
+                cout << "** CONTACT DETAILS **" << endl;
+                cout << "Enter Mobile Number: ";
+                cin >> mobile_no[i];
+                cout << "Enter Email: ";
+                cin >> email[i];
+
+                updated = true;
+                break;
+            }
+        }
+
+        if (updated) {
+            cout << "Employee data updated successfully." << endl;
+            writeToFile();  // Write the updated data to the file
+        } else {
+            cout << "Employee ID not found." << endl;
+        }
+    }
+}
+
+void Delete() {
+    if (total == 0) {
+        cout << "No data is entered yet" << endl;
+    } else {
+        string empID;
+        cout << "Enter the Employee ID you want to delete: ";
+        cin >> empID;
+
+        bool found = false;
+        int deleteIndex = -1;
+
+        // Find the employee with the given ID
+        for (int i = 0; i < total; i++) {
+            if (id[i] == empID) {
+                found = true;
+                deleteIndex = i;
+                break;
+            }
+        }
+
+        if (found) {
+            // Shift all records after the deleted one to fill the gap
+            for (int i = deleteIndex; i < total - 1; i++) {
+                loginid[i] = loginid[i + 1];
+                password[i] = password[i + 1];
+                id[i] = id[i + 1];
+                name[i] = name[i + 1];
+                address[i] = address[i + 1];
+                dob[i] = dob[i + 1];
+                marstatus[i] = marstatus[i + 1];
+                workd[i] = workd[i + 1];
+                workl[i] = workl[i + 1];
+                salary[i] = salary[i + 1];
+                socialins[i] = socialins[i + 1];
+                mobile_no[i] = mobile_no[i + 1];
+                email[i] = email[i + 1];
+                doj[i] = doj[i + 1];
+            }
+
+            // Clear the last record (which has now been moved)
+            loginid[total - 1] = "";
+            password[total - 1] = "";
+            id[total - 1] = "";
+            name[total - 1] = "";
+            address[total - 1] = "";
+            dob[total - 1] = "";
+            marstatus[total - 1] = "";
+            workd[total - 1] = "";
+            workl[total - 1] = "";
+            salary[total - 1] = "";
+            socialins[total - 1] = "";
+            mobile_no[total - 1] = "";
+            email[total - 1] = "";
+            doj[total - 1] = "";
+
+            total--;  // Decrease the total employee count
+
+            cout << "Employee record with ID " << empID << " has been deleted." << endl;
+            writeToFile();  // Re-write the data to the file
+        } else {
+            cout << "Employee with ID " << empID << " not found." << endl;
+        }
+    }
+}
+
+
+int main() {
+    int value, sample;
+    
+    cout << "ENTER 1: To Proceed.." << endl;
+    cin >> sample;
+
+    // Read from file on program start
+    readFromFile();
+
+    while (sample < 2) {
+        cout << ">>>>>>>>  EMPLOYEE RECORD MANAGEMENT SYSTEM  <<<<<<<<" << endl;
+        cout << "\nPRESS 1: To Enter data" << endl;
+        cout << "-------------------------" << endl;
+        cout << "PRESS 2: To Show data" << endl;
+        cout << "-------------------------" << endl;
+        cout << "PRESS 3: To Search data" << endl;
+        cout << "-------------------------" << endl;
+        cout << "PRESS 4: To Update data" << endl;
+        cout << "-------------------------" << endl;
+        cout << "PRESS 5: To Delete data" << endl;
+        cout << "-------------------------" << endl;
+        cout << "PRESS 6: To Quit" << endl;
+        cout << "-------------------------" << endl;
+        cin >> value;
+
+        switch (value) {
+        case 1:
+            enter();
+            break;
+        case 2:
+            show();
+            break;
+        case 3:
+            search();
+            break;
+        case 4:
+            update();
+            break;
+        case 5:
+            Delete();
+            break;
+        case 6:
+            exit(0);
+            break;
+        default:
+            cout << "Invalid input" << endl;
+            break;
+        }
+    }
+}
